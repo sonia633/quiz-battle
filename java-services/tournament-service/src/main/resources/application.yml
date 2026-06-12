@@ -1,0 +1,36 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: tournament-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/quizbattle}
+    username: ${DB_USERNAME:quizbattle}
+    password: ${DB_PASSWORD:quizbattle}
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+services:
+  leaderboard:
+    url: ${LEADERBOARD_SERVICE_URL:http://localhost:8082}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.quizbattle.tournament: INFO

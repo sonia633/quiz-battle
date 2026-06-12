@@ -1,0 +1,52 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: quiz-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/quizbattle}
+    username: ${DB_USERNAME:quizbattle}
+    password: ${DB_PASSWORD:quizbattle}
+  jpa:
+    hibernate:
+      # Dev convenience: create/update schema from entities. In production the
+      # database stack provisions the canonical schema and this becomes 'validate'.
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me-in-production-this-must-be-at-least-256-bits-long-secret}
+    access-ttl-seconds: 900
+    refresh-ttl-seconds: 1209600
+
+services:
+  leaderboard:
+    url: ${LEADERBOARD_SERVICE_URL:http://localhost:8082}
+
+seed:
+  admin:
+    username: ${ADMIN_USERNAME:admin}
+    email: ${ADMIN_EMAIL:admin@quizbattle.io}
+    password: ${ADMIN_PASSWORD:Admin12345!}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    com.quizbattle.quiz: INFO
+    AUDIT: INFO

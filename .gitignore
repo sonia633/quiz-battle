@@ -1,0 +1,50 @@
+# Java / Maven
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+HELP.md
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+ai-service/models/*.joblib
+ai-service/models/*.pkl
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/build/
+mobile/.pub-cache/
+mobile/.pub/
+mobile/ios/Pods/
+mobile/android/.gradle/
+mobile/android/local.properties
+
+# Env / secrets
+.env
+*.local
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  cloud:
+    gateway:
+      default-filters:
+        # Token-bucket rate limiting backed by Redis. 20 req/s, burst 40.
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 20
+            redis-rate-limiter.burstCapacity: 40
+            key-resolver: "#{@clientKeyResolver}"
+      routes:
+        - id: quiz-service
+          uri: ${QUIZ_SERVICE_URI:http://localhost:8081}
+          predicates:
+            - Path=/api/auth/**,/api/users/**,/api/quizzes/**,/api/categories/**,/api/questions/**,/api/rooms/**,/api/achievements/**
+        - id: quiz-service-ws
+          uri: ${QUIZ_SERVICE_WS_URI:ws://localhost:8081}
+          predicates:
+            - Path=/ws/**
+        - id: leaderboard-service
+          uri: ${LEADERBOARD_SERVICE_URI:http://localhost:8082}
+          predicates:
+            - Path=/api/leaderboard/**,/api/stats/**
+        - id: tournament-service
+          uri: ${TOURNAMENT_SERVICE_URI:http://localhost:8083}
+          predicates:
+            - Path=/api/tournaments/**,/api/notifications/**
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me-in-production-this-must-be-at-least-256-bits-long-secret}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+
+logging:
+  level:
+    com.quizbattle.gateway: INFO
+    org.springframework.cloud.gateway: WARN
