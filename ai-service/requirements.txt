@@ -1,0 +1,19 @@
+# Web framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+pydantic-settings==2.6.1
+
+# ML / data
+scikit-learn==1.5.2
+pandas==2.2.3
+numpy==2.1.3
+joblib==1.4.2
+
+# XGBoost is optional — the service falls back to scikit-learn gradient
+# boosting if it is unavailable (e.g. no wheel for the local Python version).
+xgboost==2.1.3
+
+# Testing
+pytest==8.3.4
+httpx==0.28.1

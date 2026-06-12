@@ -24,6 +24,8 @@ venv/
 .mypy_cache/
 ai-service/models/*.joblib
 ai-service/models/*.pkl
+ai-service/data/*.csv
+ai-service/*.log
 
 # Flutter / Dart
 mobile/.dart_tool/
